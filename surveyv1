@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moods | Education Program</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .checkbox-card:checked + .card-content {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-900 min-h-screen flex flex-col items-center py-16 px-6">
+
+    <div class="mb-12">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                <div class="w-4 h-4 bg-white rounded-sm rotate-45"></div>
+            </div>
+            <span class="text-2xl font-extrabold tracking-tighter text-slate-800">MOODS</span>
+        </div>
+    </div>
+
+    <div class="max-w-xl w-full">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-bold tracking-tight mb-3">Join the Future.</h1>
+            <p class="text-slate-500 text-lg">Register for our 2026 Education Programme.</p>
+        </div>
+
+        <form id="educationForm" class="space-y-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-2">
+                    <label class="text-sm font-semibold text-slate-600 ml-1">Name</label>
+                    <input type="text" placeholder="Alex" required class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none transition-all">
+                </div>
+                <div class="space-y-2">
+                    <label class="text-sm font-semibold text-slate-600 ml-1">Surname</label>
+                    <input type="text" placeholder="Smith" required class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none transition-all">
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <label class="text-sm font-semibold text-slate-600 ml-1">Email</label>
+                <input type="email" placeholder="alex@company.com" required class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none transition-all">
+            </div>
+
+            <div class="space-y-2">
+                <label class="text-sm font-semibold text-slate-600 ml-1">Role and Company</label>
+                <input type="text" placeholder="Lead Architect @ Web3 Corp" required class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none transition-all">
+            </div>
+
+            <div class="space-y-4 pt-4">
+                <label class="text-sm font-semibold text-slate-600 ml-1">Select Interested Tracks</label>
+                
+                <div class="grid grid-cols-1 gap-3">
+                    <label class="relative block cursor-pointer">
+                        <input type="checkbox" name="track" class="checkbox-card sr-only">
+                        <div class="card-content p-5 border-2 border-slate-100 rounded-2xl transition-all hover:border-slate-200">
+                            <span class="font-bold text-slate-800">Quantum Safety</span>
+                        </div>
+                    </label>
+
+                    <label class="relative block cursor-pointer">
+                        <input type="checkbox" name="track" class="checkbox-card sr-only">
+                        <div class="card-content p-5 border-2 border-slate-100 rounded-2xl transition-all hover:border-slate-200">
+                            <span class="font-bold text-slate-800">Digital Assets</span>
+                        </div>
+                    </label>
+
+                    <label class="relative block cursor-pointer">
+                        <input type="checkbox" name="track" class="checkbox-card sr-only">
+                        <div class="card-content p-5 border-2 border-slate-100 rounded-2xl transition-all hover:border-slate-200">
+                            <span class="font-bold text-slate-800">ZK and Digital Identity</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-5 rounded-2xl shadow-xl shadow-blue-200 transition-all active:scale-95">
+                Complete Registration
+            </button>
+        </form>
+
+        <div id="success" class="hidden text-center py-10 space-y-4">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-green-100 text-green-600 rounded-full mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+            <h2 class="text-3xl font-bold text-slate-900">Registration Sent!</h2>
+            <p class="text-slate-500">Check your inbox for the welcome pack.</p>
+        </div>
+    </div>
+
+    <footer class="mt-20 text-slate-400 text-xs">
+        &copy; 2026 Moods Global Education. Securely encrypted.
+    </footer>
+
+    <script>
+        const form = document.getElementById('educationForm');
+        const success = document.getElementById('success');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Simulating API call
+            form.classList.add('hidden');
+            success.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
