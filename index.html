@@ -8,84 +8,148 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #ffffff; }
-        .input-focus { border-bottom: 2px solid #e2e8f0; transition: all 0.3s ease; }
-        .input-focus:focus { border-bottom: 2px solid #2563eb; outline: none; }
-        .checkbox-custom:checked + div { border-color: #2563eb; background-color: #f8faff; }
+        .input-underline { 
+            border: none; 
+            border-bottom: 1px solid #e2e8f0; 
+            border-radius: 0;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+        }
+        .input-underline:focus { 
+            border-bottom: 1px solid #2563eb; 
+            outline: none; 
+        }
+        /* Custom Range Slider Styling */
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+        input[type=range]:focus { outline: none; }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%; height: 4px; cursor: pointer; background: #f1f5f9; border-radius: 2px;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            height: 18px; width: 18px; border-radius: 50%; background: #2563eb;
+            cursor: pointer; -webkit-appearance: none; margin-top: -7px;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+        }
+        .track-card:checked + .card-design {
+            border-color: #2563eb; background-color: #f0f7ff; color: #2563eb;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-6 text-slate-900">
+<body class="min-h-screen flex flex-col items-center pt-12 pb-12 px-6 text-slate-900">
 
-    <div class="mb-12 flex items-center gap-2 animate-fade-in">
-        <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-200">
-            <span class="text-white font-black text-xl leading-none">M</span>
-        </div>
-        <span class="text-2xl font-extrabold tracking-tighter text-slate-800">MOODS</span>
-    </div>
+    <header class="w-full max-w-xl flex flex-col items-center mb-16">
+        <img src="your-logo-file.png" alt="Moods Logo" class="h-12 mb-8 object-contain">
+        <h1 class="text-4xl font-extrabold tracking-tight text-center">Join the Future.</h1>
+        <p class="text-slate-500 mt-3 font-medium text-center">Register for our 2026 Education Programme</p>
+    </header>
 
-    <div class="max-w-md w-full">
-        <div class="mb-10 text-center">
-            <h1 class="text-3xl font-extrabold tracking-tight mb-2">Education Programme</h1>
-            <p class="text-slate-500 font-medium">Empowering the next generation of tech leaders.</p>
-        </div>
-
-        <form id="surveyForm" class="space-y-8">
-            <div class="grid grid-cols-2 gap-6">
-                <div class="flex flex-col">
-                    <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Name</label>
-                    <input type="text" placeholder="First" required class="input-focus py-2 bg-transparent text-lg">
+    <main class="w-full max-w-xl">
+        <form id="educationForm" class="space-y-12">
+            
+            <div class="space-y-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="flex flex-col">
+                        <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Name</label>
+                        <input type="text" id="name" required placeholder="Jane" class="input-underline text-lg">
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Surname</label>
+                        <input type="text" id="surname" required placeholder="Doe" class="input-underline text-lg">
+                    </div>
                 </div>
-                <div class="flex flex-col">
-                    <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Surname</label>
-                    <input type="text" placeholder="Last" required class="input-focus py-2 bg-transparent text-lg">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="flex flex-col">
+                        <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Email</label>
+                        <input type="email" id="email" required placeholder="jane@company.com" class="input-underline text-lg">
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Role and Company</label>
+                        <input type="text" id="role" required placeholder="CTO @ TechFlow" class="input-underline text-lg">
+                    </div>
                 </div>
             </div>
 
-            <div class="flex flex-col">
-                <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Email</label>
-                <input type="email" placeholder="email@company.com" required class="input-focus py-2 bg-transparent text-lg">
+            <hr class="border-slate-100">
+
+            <div class="space-y-10">
+                <h3 class="text-[11px] font-bold uppercase tracking-[0.2em] text-blue-600 text-center">Self Assessment</h3>
+                
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex justify-between mb-4">
+                            <label class="text-sm font-bold text-slate-700">Knowledge of ZK</label>
+                            <span class="text-sm font-bold text-blue-600" id="zk-val">5</span>
+                        </div>
+                        <input type="range" min="1" max="10" value="5" id="zk-range" class="w-full" oninput="document.getElementById('zk-val').innerText = this.value">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between mb-4">
+                            <label class="text-sm font-bold text-slate-700">Quantum Risks Awareness</label>
+                            <span class="text-sm font-bold text-blue-600" id="qr-val">5</span>
+                        </div>
+                        <input type="range" min="1" max="10" value="5" id="qr-range" class="w-full" oninput="document.getElementById('qr-val').innerText = this.value">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between mb-4">
+                            <label class="text-sm font-bold text-slate-700">Adoption of Digital Assets</label>
+                            <span class="text-sm font-bold text-blue-600" id="da-val">5</span>
+                        </div>
+                        <input type="range" min="1" max="10" value="5" id="da-range" class="w-full" oninput="document.getElementById('da-val').innerText = this.value">
+                    </div>
+                </div>
             </div>
 
-            <div class="flex flex-col">
-                <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Role & Company</label>
-                <input type="text" placeholder="Lead Architect @ Moods" required class="input-focus py-2 bg-transparent text-lg">
+            <div class="pt-6">
+                <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-6 block text-center">Interested Tracks</label>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <label class="cursor-pointer">
+                        <input type="checkbox" name="track" value="Quantum Safety" class="sr-only track-card">
+                        <div class="card-design border border-slate-200 rounded-xl p-4 text-center text-xs font-bold transition-all hover:border-slate-400">Quantum Safety</div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="checkbox" name="track" value="Digital Assets" class="sr-only track-card">
+                        <div class="card-design border border-slate-200 rounded-xl p-4 text-center text-xs font-bold transition-all hover:border-slate-400">Digital Assets</div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="checkbox" name="track" value="ZK and Digital Identity" class="sr-only track-card">
+                        <div class="card-design border border-slate-200 rounded-xl p-4 text-center text-xs font-bold transition-all hover:border-slate-400">ZK & Identity</div>
+                    </label>
+                </div>
             </div>
 
             <div class="pt-4">
-                <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-4 block">Select Tracks</label>
-                <div class="space-y-3">
-                    <label class="block cursor-pointer">
-                        <input type="checkbox" name="track" class="sr-only checkbox-custom">
-                        <div class="p-4 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 transition-all hover:border-slate-200">Quantum Safety</div>
-                    </label>
-                    <label class="block cursor-pointer">
-                        <input type="checkbox" name="track" class="sr-only checkbox-custom">
-                        <div class="p-4 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 transition-all hover:border-slate-200">Digital Assets</div>
-                    </label>
-                    <label class="block cursor-pointer">
-                        <input type="checkbox" name="track" class="sr-only checkbox-custom">
-                        <div class="p-4 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 transition-all hover:border-slate-200">ZK and Digital Identity</div>
-                    </label>
-                </div>
+                <button type="submit" class="w-full bg-slate-900 hover:bg-blue-600 text-white font-bold py-5 rounded-full shadow-2xl transition-all active:scale-95 text-xs uppercase tracking-[0.2em]">
+                    Submit Application
+                </button>
             </div>
-
-            <button type="submit" class="w-full bg-slate-900 text-white font-bold py-5 rounded-2xl hover:bg-blue-600 transition-all active:scale-95 shadow-xl shadow-slate-100 uppercase tracking-widest text-xs">
-                Apply to Programme
-            </button>
         </form>
 
-        <div id="success" class="hidden text-center py-10">
+        <div id="successMsg" class="hidden text-center py-20">
             <h2 class="text-4xl mb-4">✨</h2>
-            <h3 class="text-2xl font-bold">Application Sent</h3>
-            <p class="text-slate-500 mt-2">We'll review your details and be in touch.</p>
+            <h2 class="text-3xl font-bold italic">See you in 2026.</h2>
+            <p class="text-slate-500 mt-2 font-medium">Your application has been logged.</p>
         </div>
-    </div>
+    </main>
+
+    <footer class="mt-20 flex flex-col items-center gap-8">
+        <a href="https://x.com" target="_blank" class="hover:opacity-60 transition-opacity">
+            <svg class="h-5 w-5 fill-slate-900" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+        </a>
+        <p class="text-slate-300 text-[9px] uppercase tracking-[0.3em] font-bold">Moods Global &copy; 2026</p>
+    </footer>
 
     <script>
-        document.getElementById('surveyForm').onsubmit = (e) => {
+        const form = document.getElementById('educationForm');
+        const successMsg = document.getElementById('successMsg');
+
+        form.onsubmit = (e) => {
             e.preventDefault();
-            document.getElementById('surveyForm').classList.add('hidden');
-            document.getElementById('success').classList.remove('hidden');
-        }
+            form.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
     </script>
 </body>
 </html>
