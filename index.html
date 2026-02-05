@@ -38,33 +38,34 @@
 <body class="min-h-screen flex flex-col items-center pt-12 pb-12 px-6 text-slate-900">
 
     <header class="w-full max-w-xl flex flex-col items-center mb-16">
-        <img src="your-logo-file.png" alt="Moods Logo" class="h-12 mb-8 object-contain">
+        <img src="./logo.jpeg" alt="Moods Logo" class="h-16 sm:h-20 md:h-28 w-auto max-w-[280px] mb-8 object-contain">
         <h1 class="text-4xl font-extrabold tracking-tight text-center">Join the Future.</h1>
         <p class="text-slate-500 mt-3 font-medium text-center">Register for our 2026 Education Programme</p>
     </header>
 
     <main class="w-full max-w-xl">
-        <form id="educationForm" class="space-y-12">
+        <form id="educationForm" action="https://api.web3forms.com/submit" method="POST" class="space-y-12">
+            <input type="hidden" name="access_key" value="2ce885f8-8d69-4e49-b22d-de88e772cff4">
             
             <div class="space-y-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                     <div class="flex flex-col">
                         <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Name</label>
-                        <input type="text" id="name" required placeholder="Jane" class="input-underline text-lg">
+                        <input type="text" id="name" name="name" required placeholder="Jane" class="input-underline text-lg">
                     </div>
                     <div class="flex flex-col">
                         <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Surname</label>
-                        <input type="text" id="surname" required placeholder="Doe" class="input-underline text-lg">
+                        <input type="text" id="surname" name="surname" required placeholder="Doe" class="input-underline text-lg">
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                     <div class="flex flex-col">
                         <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Email</label>
-                        <input type="email" id="email" required placeholder="jane@company.com" class="input-underline text-lg">
+                        <input type="email" id="email" name="email" required placeholder="jane@company.com" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Please enter a valid email address" class="input-underline text-lg">
                     </div>
                     <div class="flex flex-col">
                         <label class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Role and Company</label>
-                        <input type="text" id="role" required placeholder="CTO @ TechFlow" class="input-underline text-lg">
+                        <input type="text" id="role" name="role" required placeholder="CTO @ TechFlow" class="input-underline text-lg">
                     </div>
                 </div>
             </div>
@@ -80,7 +81,7 @@
                             <label class="text-sm font-bold text-slate-700">Knowledge of ZK</label>
                             <span class="text-sm font-bold text-blue-600" id="zk-val">5</span>
                         </div>
-                        <input type="range" min="1" max="10" value="5" id="zk-range" class="w-full" oninput="document.getElementById('zk-val').innerText = this.value">
+                        <input type="range" min="1" max="10" value="5" id="zk-range" name="assessment_zk_knowledge" class="w-full" oninput="document.getElementById('zk-val').innerText = this.value">
                     </div>
 
                     <div>
@@ -88,7 +89,7 @@
                             <label class="text-sm font-bold text-slate-700">Quantum Risks Awareness</label>
                             <span class="text-sm font-bold text-blue-600" id="qr-val">5</span>
                         </div>
-                        <input type="range" min="1" max="10" value="5" id="qr-range" class="w-full" oninput="document.getElementById('qr-val').innerText = this.value">
+                        <input type="range" min="1" max="10" value="5" id="qr-range" name="assessment_quantum_risks" class="w-full" oninput="document.getElementById('qr-val').innerText = this.value">
                     </div>
 
                     <div>
@@ -96,7 +97,7 @@
                             <label class="text-sm font-bold text-slate-700">Adoption of Digital Assets</label>
                             <span class="text-sm font-bold text-blue-600" id="da-val">5</span>
                         </div>
-                        <input type="range" min="1" max="10" value="5" id="da-range" class="w-full" oninput="document.getElementById('da-val').innerText = this.value">
+                        <input type="range" min="1" max="10" value="5" id="da-range" name="assessment_digital_assets" class="w-full" oninput="document.getElementById('da-val').innerText = this.value">
                     </div>
                 </div>
             </div>
@@ -127,9 +128,9 @@
         </form>
 
         <div id="successMsg" class="hidden text-center py-20">
-            <h2 class="text-4xl mb-4">✨</h2>
-            <h2 class="text-3xl font-bold italic">See you in 2026.</h2>
-            <p class="text-slate-500 mt-2 font-medium">Your application has been logged.</p>
+            <h2 class="text-4xl mb-4">✓</h2>
+            <h2 class="text-3xl font-bold">Thank you for registering.</h2>
+            <p class="text-slate-500 mt-3 font-medium">We've received your application and will be in touch soon.</p>
         </div>
     </main>
 
@@ -144,11 +145,32 @@
         const form = document.getElementById('educationForm');
         const successMsg = document.getElementById('successMsg');
 
-        form.onsubmit = (e) => {
+        form.onsubmit = async (e) => {
             e.preventDefault();
-            form.classList.add('hidden');
-            successMsg.classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    form.classList.add('hidden');
+                    successMsg.classList.remove('hidden');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    throw new Error(result.message || 'Submission failed');
+                }
+            } catch (error) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Application';
+                alert('Something went wrong. Please try again.');
+            }
         };
     </script>
 </body>
